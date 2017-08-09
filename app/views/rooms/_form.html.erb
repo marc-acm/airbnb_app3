@@ -1,0 +1,56 @@
+
+<%= form_for @room, html: {multipart: true} do |form| %>
+  <% if @room.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(room.errors.count, "error") %> prohibited this room from being saved:</h2>
+
+      <ul>
+      <% room.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+  <%= form.label :photos %>
+    <%= file_field_tag "images[]", type: :file, multiple: true %>
+  </div>
+
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :room_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description, id: :room_description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :location %>
+    <%= form.text_field :location, id: :room_location %>
+  </div>
+
+  <div class="field">
+    <%= form.label :rating_id %>
+    <%= form.number_field :rating_id, id: :room_rating_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :host %>
+    <%= form.text_field :host, id: :room_host %>
+  </div>
+
+  <div class="field">
+    <%= form.label :price %>
+    <%= form.text_field :price, id: :room_price %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+

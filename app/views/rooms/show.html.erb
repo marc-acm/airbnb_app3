@@ -1,0 +1,92 @@
+<p id="notice"><%= notice %></p>
+
+<% if @photos %>
+  <div class="container">
+  <% @photos.each do |photo| %>
+    <%= image_tag photo.image.url(), class: 'img-responsive' %>
+  <% end %>
+  </div>
+<% end %>
+
+<div class='star-rating' data-score=<%= @avg_rating %>></div>
+<em><%= "#{@reviews.size} reviews" %></em>
+<p>
+  <strong>Name:</strong>
+  <%= @room.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @room.description %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @room.location %>
+</p>
+
+<p>
+  <strong>Rating:</strong>
+  <%= @room.rating_id %>
+</p>
+
+<p>
+  <strong>Host:</strong>
+  <%= @room.host %>
+</p>
+
+
+<p>
+  <strong>Price:</strong>
+  <%= @room.price %>
+</p>
+
+
+<%= render 'bookings/form', booking: @booking %>
+
+
+
+<div class="col-md-7 col-md-offset-1">
+  <h1 class="review"><%= @room%></h1>
+  <% if @reviews.blank? %>
+    <h3>No reviews just yet, would you like to add the first!</h3>
+    <%= link_to "Write Review", new_room_review_path(@room), class: "btn btn-primary" %>
+  <% else %>
+    <% @reviews.each do |review| %>
+      <div class="reviews">
+        <div class="star-rating" data-score= <%= review.rating %> ></div>
+        <p><%= review.comment %></p>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+
+
+ <%= link_to 'Edit', edit_room_path(@room) %> 
+
+ <%= link_to 'Back', rooms_path %>
+
+<div>
+<%= image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@room.latitude}%2C#{@room.longitude}" %>  
+</div>
+
+
+
+<script>
+    $('.star-rating').raty({
+      path: '/assets/',
+      readOnly: true,
+      score: function() {
+            return $(this).attr('data-score');
+    }
+  });
+</script>
+
+
+<script>
+$('#star-rating').raty({
+    path: '/assets',
+    scoreName: 'review[rating]'
+});
+</script>

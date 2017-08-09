@@ -1,0 +1,68 @@
+<p id="notice"><%= notice %></p>
+
+<%= form_tag rooms_path, :method => :get do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search Near", :name => nil %>
+  </p>
+<% end %>
+
+<h1>Rooms</h1>
+
+
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Location</th>
+      <th>Rating</th>
+      <th>Host</th>
+      <th>Price</th>
+
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @rooms.each do |room| %>
+      <tr>
+        <td><%= room.name %></td>
+        <td><%= room.description %></td>
+        <td><%= room.location %></td>
+        <td><%= room.rating_id %></td>
+        <td><%= room.user.email %></td>
+        <td><%= room.price %></td>
+        <td><%= link_to 'Show', room %></td>
+        <% if user_signed_in? %>
+        <% if room.user_id == current_user.id %>
+        <td><%= link_to 'Edit', edit_room_path(room) %></td>
+        <td><%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+       <% end %> 
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+
+<%= link_to 'New Room', new_room_path %>
+
+
+
+<h3>Nearby locations</h3>
+
+
+<ul>
+<% my_url = "http://maps.google.com/maps/api/staticmap?size=400x500&sensor=false&zoom=12" %>
+<% @rooms.each do |room| %>
+<% my_url += "&markers=#{room.latitude}%2C#{room.longitude}" %>    
+<% end %>
+<%= image_tag my_url , class:'indexmap' %>
+</ul>
+
+
+
