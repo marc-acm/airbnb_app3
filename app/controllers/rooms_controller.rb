@@ -1,10 +1,13 @@
 class RoomsController < ApplicationController
 
-  before_action :set_room, only: [:show, :edit, :update]
+  before_action :set_room, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:show, :index]
   
   def index
-    @rooms = current_user.id
+    @rooms = Room.all
+    @photos = @rooms.all
+
+
     if params[:search].present?
       @rooms = Room.near(params[:search], 50)
     else 
@@ -77,17 +80,18 @@ class RoomsController < ApplicationController
   end
 
 
+# DELETE /rooms/1
+# DELETE /rooms/1.json
+
   def destroy
-    if current_user.id == @room.user.id
-     @room.destroy
+    if @room.destroy
       respond_to do |format|
       format.html { redirect_to rooms_url, notice: 'Room was successfully destroyed.' }
       format.json { head :no_content }
       end
     else
       redirect_to root_path, notice: "You don't have permission."
-    end 
-  
+    end
   end
 
 
@@ -97,6 +101,6 @@ class RoomsController < ApplicationController
     end
 
     def room_params
-      params.require(:room).permit(:name, :description, :rating_id, :host, :location, :price)
+      params.require(:room).permit(:name, :description, :rating_id, :host, :location, :price, :photo)
     end
 end
