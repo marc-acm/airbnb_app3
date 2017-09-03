@@ -14,7 +14,7 @@
  *= require_self
  */
 
- body { padding-top: 100px; }
+body { padding-top: 10px; }
 footer { margin-top: 100px; }
 table, td, th { vertical-align: middle; border: none; }
 th { border-bottom: 1px solid #DDD; }
@@ -32,3 +32,61 @@ th { border-bottom: 1px solid #DDD; }
     text-align: center;
     img { width: 100% }
 }
+
+
+header {
+  height: 100%;
+  overflow: hidden;
+}
+
+
+h1{
+
+font-size: 50px;
+text-align: center;
+}
+
+h2{
+
+font-size: 20px;
+text-align: right;
+}
+
+p{
+
+
+font-size: 30px;
+text-align: -webkit-right;
+
+}
+
+
+.btn-primary{
+	background-color: #dff0d8;
+}
+
+
+
+.jumbotron{
+	background: url("IMG_1863.JPG") center center ;/*chosen image =>you image*/	
+	background-size: cover;
+	padding-top:150px;
+	padding-bottom: 100px;
+	color: bisque;
+
+	
+}
+
+
+
+
+
+a{
+	text-center;
+	
+}
+
+
+
+
+
